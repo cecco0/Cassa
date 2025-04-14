@@ -46,7 +46,7 @@ Public Class FormUscite
         panel.Controls.AddRange(New Control() {ExitButton, UpdateButton})
 
         Controls.AddRange(New Control() {dataGridView1, panel})
-        Text = "Entrate"
+        Text = "Uscite"
 
     End Sub
 
@@ -84,7 +84,7 @@ Public Class FormUscite
         ' and load the data from the database.
         dataGridView1.AutoGenerateColumns = True
         dataGridView1.DataSource = bindingSource1
-        GetData("select * from [dbo].[Table] where (Operazione = N'ENTRATA')")
+        GetData("select * from [dbo].[Table] where (Operazione = N'USCITA')")
 
         Dim objAlternatingCellStyle As New DataGridViewCellStyle With {
             .BackColor = Color.YellowGreen,
