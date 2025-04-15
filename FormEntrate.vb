@@ -1,5 +1,5 @@
-﻿Imports System.Data.SqlClient
-Imports System.Configuration.ConfigurationManager
+﻿Imports System.Configuration.ConfigurationManager
+Imports System.Data.SqlClient
 Public Class FormEntrate
     Inherits Form
     Private ReadOnly thisDataSet As New DataSet

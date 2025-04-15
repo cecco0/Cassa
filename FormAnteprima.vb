@@ -1,6 +1,6 @@
-﻿Imports System.Data.SqlClient
+﻿Imports System.Configuration.ConfigurationManager
+Imports System.Data.SqlClient
 Imports Microsoft.Reporting.WinForms
-Imports System.Configuration.ConfigurationManager
 Public Class FormAnteprima
     Private Sub FormAnteprima_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Using dsTable As DataSet1 = GetData()

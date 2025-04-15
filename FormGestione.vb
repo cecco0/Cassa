@@ -1,6 +1,6 @@
 ﻿Imports System.Configuration.ConfigurationManager
-Imports System.Threading
 Imports System.Data.SqlClient
+Imports System.Threading
 Public Class FormGestione
     ' La finestra di progettazione richiede questa procedura...
     ' Dichiarazione degli oggetti e variabili locali...
@@ -403,45 +403,47 @@ Public Class FormGestione
         DateTimePicker1.Focus()
     End Sub
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
-        ' Pulizia della ToolStripSatatusLabel1...
-        ToolStripStatusLabel1.Text = ""
-        ' Quesito relativo a richiesta di conferma o annullamento azione...
-        ' Risposta positiva, disattivazione di quei comandi che ....
-        If MsgBox("Proseguire con l'azione ?", MsgBoxStyle.Question Or MsgBoxStyle.YesNo) =
-        MsgBoxResult.Yes Then
-            ' Aggiunta della scrittura...
-            AggiungiScrittura()
-            ' Se la risposta è negativa, allora...
-        ElseIf MsgBoxResult.No Then
-            ToolStripStatusLabel1.Text = "Azione annullata."
+        ' Connessione al database...
+        Using connection As New SqlConnection(connectionString)
+            ' Segnaposto per la posizione corrente...
+            Dim intPosition As Integer
+            ' Creazione del comando per l'inserimento dei dati...
+            Dim cmdInsert As New SqlCommand()
+            ' Salvataggio della posizione della scrittura corrente..
+            intPosition = currencyManager.Position
+            cmdInsert.Connection = connection
+            cmdInsert.CommandText = "INSERT INTO [dbo].[Table] " &
+                        "(Id, Data, Operazione, Descrizione, Importo) " &
+                        "VALUES(@Id,@Data,@Operazione,@Descrizione,@Importo)"
+            ' Aggiunta dei parametri...
+            cmdInsert.Parameters.AddWithValue("@Id", TextBox1.Text).DbType =
+                        DbType.Int32
+            cmdInsert.Parameters.AddWithValue("@Data", DateTimePicker1.Text).DbType =
+                        DbType.DateTime
+            cmdInsert.Parameters.AddWithValue("@Operazione", TextBox2.Text).DbType =
+                        DbType.String
+            cmdInsert.Parameters.AddWithValue("@Descrizione", TextBox3.Text).DbType =
+                        DbType.String
+            cmdInsert.Parameters.AddWithValue("@Importo", TextBox4.Text).DbType =
+                        DbType.Currency
+            ' Apertura della connessione...
+            connection.Open()
+            Try
+                ' Esecuzione del comando...
+                cmdInsert.ExecuteNonQuery()
+            Catch ex As Exception
+                MessageBox.Show(ex.Message)
+            End Try
+            ' Chiusura della connessione...
+            connection.Close()
+            FillDataSetAndView()
+            BindFields()
+            currencyManager.Position = intPosition
             ShowPosition()
+            ToolStripStatusLabel1.Text = "Scrittura aggiunta al database."
+            ' Ripristino dei controlli...
             RipristinaControlli()
-        End If
-    End Sub
-    Private Sub AggiungiScrittura()
-        ' Aggiunta della scrittura...
-        Dim newRow As DataRow = dataSet.Tables("[dbo].[Table]").NewRow()
-        ' Assegnazione dei valori...
-        newRow("Id") = TextBox1.Text
-        newRow("Data") = DateTimePicker1.Value
-        newRow("Operazione") = TextBox2.Text
-        newRow("Descrizione") = TextBox3.Text
-        'newRow("Importo") = TextBox4.Text
-        Dim importo As Decimal
-        If Decimal.TryParse(TextBox4.Text, Globalization.NumberStyles.Currency, Globalization.CultureInfo.CurrentCulture, importo) Then
-            newRow("Importo") = importo
-        Else
-            MessageBox.Show("Input di Importo non valido.")
-        End If
-        ' Aggiunta della scrittura...
-        dataSet.Tables("[dbo].[Table]").Rows.Add(newRow)
-        ' Salvataggio delle modifiche...
-        Dim commandBuilder As New SqlCommandBuilder(dataAdapter)
-        dataAdapter.Update(dataSet, "[dbo].[Table]")
-        ' Visualizzazione del messaggio di avvenuta aggiunta della scrittura...
-        ToolStripStatusLabel1.Text = "Scrittura aggiunta."
-        ' Ripristino dei controlli...
-        RipristinaControlli()
+        End Using
     End Sub
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
         ' Pulizia della ToolStripSatatusLabel1...
