@@ -1,6 +1,6 @@
 ﻿Imports System.Configuration.ConfigurationManager
 Imports System.Threading
-
+Imports System.Data.SqlClient
 Public Class FormGestione
     ' La finestra di progettazione richiede questa procedura...
     ' Dichiarazione degli oggetti e variabili locali...
