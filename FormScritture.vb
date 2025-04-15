@@ -107,6 +107,7 @@ Public Class FormScritture
     Private Sub UpdateButton_Click(sender As Object, e As EventArgs) Handles UpdateButton.Click
         Dim DialogResult = MsgBox("Le modifiche prevedono la pulizia delle caselle interessate. Vuoi aggiornare il database?", MsgBoxStyle.YesNo, "Aggiornamento")
         If DialogResult = MsgBoxResult.No Then
+            MessageBox.Show("Aggiornamento annullato.Chiudere e riaprire il form per visualizzare correttamente dati.", "Aggiornamento", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Return
         ElseIf DialogResult = MsgBoxResult.Yes Then
             ' Aggiornamento del database...
@@ -118,4 +119,5 @@ Public Class FormScritture
         ' Prima riga del DataGridView...
         dataGridView1.Rows(0).Selected = True
     End Sub
+
 End Class

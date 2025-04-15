@@ -106,6 +106,7 @@ Public Class FormUscite
         ' Dim v = dataAdapter.Update(CType(bindingSource1.DataSource, DataTable))
         Dim DialogResult = MsgBox("Le modifiche prevedono la pulizia delle caselle interessate. Vuoi aggiornare il database?", MsgBoxStyle.YesNo, "Aggiornamento")
         If DialogResult = MsgBoxResult.No Then
+            MessageBox.Show("Aggiornamento annullato. Chiudere e riaprire il form per visualizzare correttamente i dati.", "Aggiornamento", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Return
         ElseIf DialogResult = MsgBoxResult.Yes Then
             ' Aggiornamento del database...
