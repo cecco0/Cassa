@@ -1,6 +1,7 @@
 ﻿Imports System.Configuration.ConfigurationManager
 Imports System.Data.SqlClient
 Imports System.Threading
+Imports Microsoft.VisualBasic.FileIO
 Public Class FormGestione
     ' La finestra di progettazione richiede questa procedura...
     ' Dichiarazione degli oggetti e variabili locali...
@@ -17,10 +18,11 @@ Public Class FormGestione
         ' Aggiungere le eventuali istruzioni di inizializzazione dopo la chiamata a InitializeComponent().
 
     End Sub
-
-    Private Function GetDateTimePicker1() As DateTimePicker
-        Return DateTimePicker1
-    End Function
+    Private ReadOnly Property DateTimePicker11 As DateTimePicker
+        Get
+            Return DateTimePicker1
+        End Get
+    End Property
 
     Private Sub FillDataSetAndView()
         ' Nuova istanza dell'oggetto DataSet...
@@ -49,8 +51,14 @@ Public Class FormGestione
     End Sub
 
     Private Sub ShowPosition()
-        ' Formattazione personalizzata della data...
+
+        Dim myDouble As Double = TextBox4.BindingContext.Contains("Importo")
+        Dim myString As String = Convert.ToString(myDouble)
+        TextBox4.Text = myString
+
+        'Formattazione personalizzata della data...
         DateTimePicker1.Format = DateTimePickerFormat.Custom
+        ' Impostazione del formato della data...
         Try
             DateTimePicker1.CustomFormat = "dd/MM/yyyy"
             TextBox4.Text = FormatCurrency(TextBox4.Text, 2, TriState.True, TriState.True)

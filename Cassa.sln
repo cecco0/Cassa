@@ -23,6 +23,7 @@ Global
 		{1502F10A-6AD4-C1F6-C278-0971FC412432}.All|Any CPU.ActiveCfg = Debug
 		{1502F10A-6AD4-C1F6-C278-0971FC412432}.Debug|Any CPU.ActiveCfg = Debug
 		{1502F10A-6AD4-C1F6-C278-0971FC412432}.Release|Any CPU.ActiveCfg = Release
+		{1502F10A-6AD4-C1F6-C278-0971FC412432}.Release|Any CPU.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
