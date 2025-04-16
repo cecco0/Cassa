@@ -289,45 +289,6 @@ Public Class FormGestione
         MethodTotali()
         FormatData()
     End Sub
-    Private Sub TextBox1_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBox1.KeyPress
-        'Analizza se la textbox1 è vuota e se il tasto premuto è il tasto invio...  
-        If e.KeyChar = ChrW(Keys.Return) AndAlso TextBox1.Text <> "" Then
-            e.Handled = True
-            Dim v = DateTimePicker1.Focus()
-        End If
-    End Sub
-
-    Private Sub DateTimePicker1_KeyPress(sender As Object, e As KeyPressEventArgs) Handles DateTimePicker1.KeyPress
-        'Analizza se DateTimePicker1 è vuota e se il tasto premuto è il tasto invio...
-        If e.KeyChar = ChrW(Keys.Return) Then
-            e.Handled = True
-            Dim v1 = TextBox2.Focus()
-        End If
-    End Sub
-    Private Sub TextBox2_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBox2.KeyPress
-        'Analizza se la textbox2 è vuota e se il tasto premuto è il tasto invio...
-        If e.KeyChar = ChrW(Keys.Return) AndAlso TextBox2.Text <> "" Then
-            e.Handled = True
-            Dim v2 = TextBox3.Focus()
-        End If
-    End Sub
-
-    Private Sub TextBox3_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBox3.KeyPress
-        'Analizza se la textbox3 è vuota e se il tasto premuto è il tasto invio...
-        If e.KeyChar = ChrW(Keys.Return) AndAlso TextBox3.Text <> "" Then
-            e.Handled = True
-            Dim v3 = TextBox4.Focus()
-        End If
-    End Sub
-
-    Private Sub TextBox4_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBox4.KeyPress
-        'Analizza se la textbox4 è vuota e se il tasto premuto è il tasto invio...
-        If e.KeyChar = ChrW(Keys.Return) AndAlso TextBox4.Text <> "" Then
-            e.Handled = True
-            Dim v4 = DateTimePicker1.Focus()
-        End If
-    End Sub
-
     Private Sub FormGestione_Activated(sender As Object, e As EventArgs) Handles Me.Activated
         ' Riapertura del form e formattazione dati...
         ShowPosition()
