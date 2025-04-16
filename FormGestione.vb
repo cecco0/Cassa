@@ -51,25 +51,22 @@ Public Class FormGestione
     End Sub
 
     Private Sub ShowPosition()
-
-        Dim myDouble As Double = TextBox4.BindingContext.Contains("Importo")
-        Dim myString As String = Convert.ToString(myDouble)
-        TextBox4.Text = myString
-
-        'Formattazione personalizzata della data...
+        'Impostazione formato della data...
+        'e formattazione...
         DateTimePicker1.Format = DateTimePickerFormat.Custom
-        ' Impostazione del formato della data...
+        DateTimePicker1.CustomFormat = "dd/MM/yyyy"
+        ' Formattazione dell'importo...
         Try
-            DateTimePicker1.CustomFormat = "dd/MM/yyyy"
-            TextBox4.Text = FormatCurrency(TextBox4.Text, 2, TriState.True, TriState.True)
-        Catch ex As Exception
-            MessageBox.Show(ex.Message)
-            DateTimePicker1.CustomFormat = "dd/MM/yyyy h:mm:ss"
-            DateTimePicker1.CustomFormat = "dd/MM/yyyy"
+                Dim importo As Decimal
+            If Decimal.TryParse(TextBox4.Text, importo) Then
+                TextBox4.Text = FormatCurrency(importo, 2, TriState.True, TriState.True)
+            End If
+        Catch ex As FormatException
+                MessageBox.Show("Errore di formattazione: " & ex.Message)
             TextBox4.Text = "0.00"
             TextBox4.Text = FormatCurrency(TextBox4.Text, 2, TriState.True, TriState.True)
+
         End Try
-        ' Visualizzazione della posizione corrente ed il numero di record...
         TextBox9.Text = $"{currencyManager.Position + 1} di {currencyManager.Count}"
     End Sub
     Private Sub FrmGestione_Load(sender As Object, e As EventArgs) Handles Me.Load
