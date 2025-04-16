@@ -294,11 +294,6 @@ Public Class FormGestione
         If e.KeyChar = ChrW(Keys.Return) AndAlso TextBox1.Text <> "" Then
             e.Handled = True
             Dim v = DateTimePicker1.Focus()
-        Else
-            'Se la textbox1 è vuota e il tasto premuto è il tasto invio, allora...
-            e.Handled = False
-            Dim v = TextBox1.Focus()
-            TextBox1.Text = ""
         End If
     End Sub
 
@@ -307,9 +302,6 @@ Public Class FormGestione
         If e.KeyChar = ChrW(Keys.Return) Then
             e.Handled = True
             Dim v1 = TextBox2.Focus()
-        Else
-            'Se DateTimePicker1 è vuota e il tasto premuto è il tasto invio, allora...
-            e.Handled = False
         End If
     End Sub
     Private Sub TextBox2_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBox2.KeyPress
@@ -317,10 +309,6 @@ Public Class FormGestione
         If e.KeyChar = ChrW(Keys.Return) AndAlso TextBox2.Text <> "" Then
             e.Handled = True
             Dim v2 = TextBox3.Focus()
-        Else
-            'Se la textbox2 è vuota e il tasto premuto è il tasto invio, allora...
-            e.Handled = False
-            Dim v2 = TextBox2.Focus()
         End If
     End Sub
 
@@ -329,10 +317,6 @@ Public Class FormGestione
         If e.KeyChar = ChrW(Keys.Return) AndAlso TextBox3.Text <> "" Then
             e.Handled = True
             Dim v3 = TextBox4.Focus()
-        Else
-            'Se la textbox3 è vuota e il tasto premuto è il tasto invio, allora...
-            e.Handled = False
-            Dim v3 = TextBox3.Focus()
         End If
     End Sub
 
@@ -341,10 +325,6 @@ Public Class FormGestione
         If e.KeyChar = ChrW(Keys.Return) AndAlso TextBox4.Text <> "" Then
             e.Handled = True
             Dim v4 = DateTimePicker1.Focus()
-        Else
-            'Se la textbox4 è vuota e il tasto premuto è il tasto invio, allora...
-            e.Handled = False
-            Dim v5 = TextBox4.Focus()
         End If
     End Sub
 
