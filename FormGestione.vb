@@ -227,6 +227,7 @@ Public Class FormGestione
         ' Visualizzazione della posizione della Scrittura corrente...
         ShowPosition()
     End Sub
+
     Private Sub MethodTotali()
         ' Connessione al database...
         Using conn As New SqlConnection(connectionString)
@@ -518,5 +519,48 @@ Public Class FormGestione
                 ToolStripStatusLabel1.Text = "Azione annullata."
             End If
         End Using
+    End Sub
+
+    Private Sub TextBox1_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBox1.KeyPress
+        If e.KeyChar = ChrW(Keys.Enter) Then
+            ' Se il tasto premuto è il tasto invio...
+            ' Passaggio al campo successivo...
+            SendKeys.Send("{TAB}")
+        End If
+    End Sub
+    Private Sub DateTimePicker1_KeyPress(sender As Object, e As KeyPressEventArgs) Handles DateTimePicker1.KeyPress
+        If e.KeyChar = ChrW(Keys.Enter) Then
+            ' Se il tasto premuto è il tasto invio...
+            ' Passaggio al campo successivo...
+            SendKeys.Send("{TAB}")
+        End If
+    End Sub
+    Private Sub TextBox2_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBox2.KeyPress
+        If e.KeyChar = ChrW(Keys.Enter) Then
+            ' Se il tasto premuto è il tasto invio...
+            ' Passaggio al campo successivo...
+            SendKeys.Send("{TAB}")
+        End If
+    End Sub
+    Private Sub TextBox3_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBox3.KeyPress
+        If e.KeyChar = ChrW(Keys.Enter) Then
+            ' Se il tasto premuto è il tasto invio...
+            ' Passaggio al campo successivo...
+            SendKeys.Send("{TAB}")
+        End If
+    End Sub
+    Private Sub TextBox4_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBox4.KeyPress
+        If e.KeyChar = ChrW(Keys.Enter) Then
+            ' Se il tasto premuto è il tasto invio...
+            ' Controllo della casella di testo
+            If TextBox1.Enabled = True Then
+                ' Se il campo Id è abilitato allora...
+                TextBox1.Focus()
+            Else
+                ' Altrimenti passaggio al campo successivo...
+                DateTimePicker1.Focus()
+            End If
+
+        End If
     End Sub
 End Class
