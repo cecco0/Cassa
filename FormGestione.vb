@@ -1,7 +1,7 @@
 ﻿Imports System.Configuration.ConfigurationManager
 Imports System.Data.SqlClient
 Imports System.Threading
-Imports Microsoft.VisualBasic.FileIO
+
 Public Class FormGestione
     ' La finestra di progettazione richiede questa procedura...
     ' Dichiarazione degli oggetti e variabili locali...
@@ -57,12 +57,12 @@ Public Class FormGestione
         DateTimePicker1.CustomFormat = "dd/MM/yyyy"
         ' Formattazione dell'importo...
         Try
-                Dim importo As Decimal
+            Dim importo As Decimal
             If Decimal.TryParse(TextBox4.Text, importo) Then
                 TextBox4.Text = FormatCurrency(importo, 2, TriState.True, TriState.True)
             End If
         Catch ex As FormatException
-                MessageBox.Show("Errore di formattazione: " & ex.Message)
+            MessageBox.Show("Errore di formattazione: " & ex.Message)
             TextBox4.Text = "0.00"
             TextBox4.Text = FormatCurrency(TextBox4.Text, 2, TriState.True, TriState.True)
 
@@ -88,6 +88,9 @@ Public Class FormGestione
         MethodTotali()
         FormatData()
         TextBox1.Enabled = False
+        TextBox5.Enabled = False
+        TextBox6.Enabled = False
+        TextBox7.Enabled = False
         Button5.Enabled = False
         DateTimePicker1.Focus()
         Timer1.Enabled = True
@@ -523,6 +526,7 @@ Public Class FormGestione
 
     Private Sub TextBox1_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBox1.KeyPress
         If e.KeyChar = ChrW(Keys.Enter) Then
+            e.Handled = True
             ' Se il tasto premuto è il tasto invio...
             ' Passaggio al campo successivo...
             SendKeys.Send("{TAB}")
@@ -530,6 +534,7 @@ Public Class FormGestione
     End Sub
     Private Sub DateTimePicker1_KeyPress(sender As Object, e As KeyPressEventArgs) Handles DateTimePicker1.KeyPress
         If e.KeyChar = ChrW(Keys.Enter) Then
+            e.Handled = True
             ' Se il tasto premuto è il tasto invio...
             ' Passaggio al campo successivo...
             SendKeys.Send("{TAB}")
@@ -537,6 +542,7 @@ Public Class FormGestione
     End Sub
     Private Sub TextBox2_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBox2.KeyPress
         If e.KeyChar = ChrW(Keys.Enter) Then
+            e.Handled = True
             ' Se il tasto premuto è il tasto invio...
             ' Passaggio al campo successivo...
             SendKeys.Send("{TAB}")
@@ -544,6 +550,7 @@ Public Class FormGestione
     End Sub
     Private Sub TextBox3_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBox3.KeyPress
         If e.KeyChar = ChrW(Keys.Enter) Then
+            e.Handled = True
             ' Se il tasto premuto è il tasto invio...
             ' Passaggio al campo successivo...
             SendKeys.Send("{TAB}")
@@ -551,6 +558,7 @@ Public Class FormGestione
     End Sub
     Private Sub TextBox4_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBox4.KeyPress
         If e.KeyChar = ChrW(Keys.Enter) Then
+            e.Handled = True
             ' Se il tasto premuto è il tasto invio...
             ' Controllo della casella di testo
             If TextBox1.Enabled = True Then
