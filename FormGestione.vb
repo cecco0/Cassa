@@ -90,7 +90,7 @@ Public Class FormGestione
         TextBox1.Enabled = False
         TextBox5.Enabled = False
         TextBox6.Enabled = False
-        TextBox7.Enabled = False
+        TextBox7.Enabled = True
         Button5.Enabled = False
         DateTimePicker1.Focus()
         Timer1.Enabled = True
@@ -238,39 +238,41 @@ Public Class FormGestione
             ' Creazione dei comandi per il calcolo delle entrate e uscite...
             Dim cmdEntrate As New SqlCommand("SELECT SUM(Importo) As TotaleEntrate
                    FROM [dbo].[Table]
-                   WHERE (Operazione = N'ENTRATA')
-                   OR Importo IS NULL", conn)
+                   WHERE Operazione = N'ENTRATA'", conn)
             Dim cmdUscite As New SqlCommand("SELECT SUM(Importo) As TotaleUscite
                    FROM [dbo].[Table]
-                   WHERE (Operazione = N'USCITA')
-                   OR Importo IS NULL", conn)
-            ' Aggiunta dei parametri...
-            Dim sqlParameter1 = cmdEntrate.Parameters.AddWithValue("@Importo", TextBox5.Text).DbType =
-            DbType.Decimal
-            Dim sqlParameter = cmdUscite.Parameters.AddWithValue("@Importo", TextBox5.Text).DbType =
-            DbType.Decimal
-            ' Esecuzione dei comandi per il calcolo delle entrate e uscite...
+                   WHERE Operazione = N'USCITA'", conn)
+
             Try
+                ' Calcolo delle entrate
                 Dim Entrate = cmdEntrate.ExecuteScalar()
                 TextBox5.Text = CStr(If(Entrate IsNot DBNull.Value, Entrate, "0"))
-            Catch ex As Exception
-                Dim DialogResult = MessageBox.Show(ex.Message)
-            End Try
-            Try
-                Dim Uscite = cmdUscite.ExecuteScalar
+
+                ' Calcolo delle uscite
+                Dim Uscite = cmdUscite.ExecuteScalar()
                 TextBox6.Text = CStr(If(Uscite IsNot DBNull.Value, Uscite, "0"))
+                conn.Close()
+
+                ' Calcolo del saldo finale
+                Dim totEntrate As Decimal = Convert.ToDecimal(TextBox5.Text)
+                Dim totUscite As Decimal = Convert.ToDecimal(TextBox6.Text)
+                Dim totale As Decimal = totEntrate - totUscite
+
+                ' Visualizzazione del saldo
+                TextBox7.Text = totale.ToString("C2") ' Formattazione come valuta
+
+                ' Evidenziazione del risultato negativo
+                If totale < 0 Then
+                    TextBox7.ForeColor = Color.Red ' Rosso per saldo negativo
+                Else
+                    TextBox7.ForeColor = Color.Black ' Nero per saldo positivo o zero
+                End If
             Catch ex As Exception
-                Dim DialogResult = MessageBox.Show(ex.Message)
+                MessageBox.Show("Errore durante il calcolo dei totali: " & ex.Message)
             End Try
-            conn.Close()
-            ' Calcolo del totale delle entrate e uscite...
-            Dim totEntrate As String = TextBox5.Text
-            Dim totUscite As String = TextBox6.Text
-            'Saldo finale...
-            Dim totale As String = totEntrate - totUscite
-            TextBox7.Text = totale
         End Using
     End Sub
+
     Private Sub FormatData()
         ' Formattazione dei dati...
         Try
